@@ -9,7 +9,8 @@
     "lint": "next lint",
     "generate:migration": "npx drizzle-kit generate --config drizzle.config.js",
     "migrate": "tsx src/app/cli/migrator.js",
-    "deploy": "AWS_PROFILE=sst npx sst deploy --stage production",
+    "deploy:local": "AWS_PROFILE=sst npx sst deploy --stage production",
+    "deploy:prod": "npx sst deploy --stage production",
     "deployStaging": "AWS_PROFILE=sst npx sst deploy --stage staging"
   },
   "dependencies": {
