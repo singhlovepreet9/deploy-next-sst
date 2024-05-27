@@ -47,6 +47,7 @@ jobs:
       - name: Set SST Config Secret
         run: |
           npx sst secrets set DATABASE_URL '${{ secrets.DATABASE_URL_STAGING }}' --stage staging
+          npx sst secrets set SECRET_VAL some_stage_value --stage staging
           npx sst secrets set COMMIT_SHA '${{ github.sha }}' --stage staging
       - name: Run staging migrations
         run: |
@@ -58,3 +59,10 @@ jobs:
       - name: Clean Up AWS Profile
         run: |
           rm -rf ~/.aws
+
+      - name: Craete Pull Request to production
+        if: sucess()
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh pr create --base production --head main --title "Stage changes" --body "Auto PR from Stage Release"
