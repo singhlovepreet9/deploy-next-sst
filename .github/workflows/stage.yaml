@@ -50,7 +50,7 @@ jobs:
           npx sst secrets set COMMIT_SHA '${{ github.sha }}' --stage staging
       - name: Run staging migrations
         run: |
-          STAGE=staging tsx src/app/cli/migrator.js
+          STAGE=staging npx tsx src/app/cli/migrator.js
 
       - name: Deploy to AWS with SST
         run: pnpm run deploy:stage
