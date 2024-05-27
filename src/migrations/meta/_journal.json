@@ -1,0 +1,27 @@
+{
+  "version": "6",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "6",
+      "when": 1716813222090,
+      "tag": "0000_typical_metal_master",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1716813353405,
+      "tag": "0001_cold_dreaming_celestial",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1716813370285,
+      "tag": "0002_confused_proemial_gods",
+      "breakpoints": true
+    }
+  ]
+}

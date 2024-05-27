@@ -3,20 +3,32 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "sst bind next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "generate:migration": "npx drizzle-kit generate --config drizzle.config.js",
+    "migrate": "tsx src/app/cli/migrator.js",
+    "deploy": "AWS_PROFILE=sst npx sst deploy --stage production",
+    "deployStaging": "AWS_PROFILE=sst npx sst deploy --stage staging"
   },
   "dependencies": {
+    "@neondatabase/serverless": "^0.9.3",
+    "drizzle-kit": "^0.21.4",
+    "drizzle-orm": "^0.30.10",
     "next": "14.2.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
+    "aws-cdk-lib": "2.142.1",
+    "aws-sdk": "^2.1628.0",
+    "constructs": "10.3.0",
     "eslint": "^8.57.0",
     "eslint-config-next": "14.2.3",
     "postcss": "^8.4.38",
-    "tailwindcss": "^3.4.3"
+    "sst": "^2.42.0",
+    "tailwindcss": "^3.4.3",
+    "tsx": "^4.11.0"
   }
 }
