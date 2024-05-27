@@ -61,7 +61,7 @@ jobs:
           rm -rf ~/.aws
 
       - name: Craete Pull Request to production
-        if: sucess()
+        if: success()
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
