@@ -1,18 +1,8 @@
-name: Deploy via SST to AWS
+name: One-off Deploy via SST to AWS
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - main
-      - master
-    paths:
-      - ".github/workflows/main.yaml"
-      - "src/**"
-      - "*.json"
-      - "*.yaml"
-      - "*.config.ts"
-      - "*.config.js"
+
 jobs:
   deploy:
     runs-on: ubuntu-latest

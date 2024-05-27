@@ -1,4 +1,4 @@
-name: Deploy via SST to AWS
+name: Staging Deploy via SST to AWS
 
 on:
   workflow_dispatch:
