@@ -1,20 +1,14 @@
-name: Staging Deploy via SST to AWS
+name: Deploy Prodution via SST to AWS
 
 on:
-  workflow_dispatch:
-  push:
+  pull_request:
     branches:
-      - main
-      - master
-    paths:
-      - ".github/workflows/stage.yaml"
-      - "src/**"
-      - "*.json"
-      - "*.yaml"
-      - "*.config.ts"
-      - "*.config.js"
+      - production
+    types:
+      - closed
 jobs:
-  deploy:
+  production:
+    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -44,25 +38,15 @@ jobs:
           echo "aws_access_key_id=${{ secrets.AWS_ACCESS_KEY_ID }}" >> ~/.aws/credentials
           echo "aws_secret_access_key=${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> ~/.aws/credentials
 
-      - name: Set SST Config Secret
-        run: |
-          npx sst secrets set DATABASE_URL '${{ secrets.DATABASE_URL_STAGING }}' --stage staging
-          npx sst secrets set SECRET_VAL some_stage_value --stage staging
-          npx sst secrets set COMMIT_SHA '${{ github.sha }}' --stage staging
       - name: Run staging migrations
         run: |
           STAGE=staging npx tsx src/app/cli/migrator.js
 
       - name: Deploy to AWS with SST
-        run: pnpm run deploy:stage
+        run: pnpm run deploy:prod
 
       - name: Clean Up AWS Profile
         run: |
           rm -rf ~/.aws
 
-      - name: Craete Pull Request to production
-        if: success()
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          gh pr create --base production --head main --title "Stage changes" --body "Auto PR from Stage Release"
+      # - name: Remove Staging Deploymen
